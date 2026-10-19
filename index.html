@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Catatan Pengeluaran</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Catatan Pengeluaran</h1>
+    <label class="month-picker">
+      <span>Bulan</span>
+      <input type="month" id="month">
+    </label>
+  </header>
+
+  <main>
+    <section class="cards" aria-label="Ringkasan">
+      <div class="card"><span class="label">Hari ini</span><strong id="sum-today">Rp0</strong></div>
+      <div class="card"><span class="label">Total bulan ini</span><strong id="sum-month">Rp0</strong></div>
+      <div class="card"><span class="label">Rata-rata per hari</span><strong id="sum-avg">Rp0</strong></div>
+      <div class="card"><span class="label">Sisa budget</span><strong id="sum-left">–</strong></div>
+    </section>
+
+    <div id="budget-alert" class="alert" hidden></div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2 id="form-title">Tambah pengeluaran</h2>
+        <form id="form" autocomplete="off">
+          <input type="hidden" id="edit-id">
+          <label>Tanggal
+            <input type="date" id="date" required>
+          </label>
+          <label>Jumlah (Rp)
+            <input type="number" id="amount" min="1" step="1" inputmode="numeric" placeholder="cth. 25000" required>
+          </label>
+          <label>Kategori
+            <select id="category" required></select>
+          </label>
+          <label>Catatan
+            <input type="text" id="note" maxlength="120" placeholder="cth. Makan siang">
+          </label>
+          <div class="actions">
+            <button type="submit" class="primary" id="submit-btn">Simpan</button>
+            <button type="button" id="cancel-edit" hidden>Batal</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Per kategori</h2>
+        <div id="by-category" class="bars"></div>
+      </section>
+    </div>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Riwayat</h2>
+        <div class="actions">
+          <button type="button" id="export-month">Export CSV bulan ini</button>
+          <button type="button" id="export-all">Export CSV semua</button>
+        </div>
+      </div>
+      <div id="list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Budget bulanan</h2>
+      <p class="hint">Kosongkan jika tidak ingin memakai batas. Peringatan muncul saat pemakaian mencapai 80%.</p>
+      <form id="budget-form" class="budget-grid"></form>
+      <div class="actions">
+        <button type="submit" form="budget-form" class="primary">Simpan budget</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Cadangan data</h2>
+      <p class="hint">Data hanya tersimpan di browser ini. Buat cadangan secara berkala supaya tidak hilang.</p>
+      <div class="actions">
+        <button type="button" id="backup">Unduh cadangan (JSON)</button>
+        <label class="button">Pulihkan dari cadangan
+          <input type="file" id="restore" accept="application/json,.json" hidden>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
